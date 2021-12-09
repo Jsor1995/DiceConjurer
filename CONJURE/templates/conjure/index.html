@@ -1,0 +1,27 @@
+{% extends "CONJURE/layout.html" %}
+
+{% block body %}
+<main>
+    <div id="conjure-header">
+            <h1>Conjure Animal Calculator</h1><br>
+        </div>
+    <div id="app-container">
+        
+        <div id="flex-grid">
+            <div class="creature-card"></div>
+        </div>
+        <div id="conjure-menu">
+            <div class="list-group">
+                {% for key, value in cr_list.items %}
+                    <button class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#test-collapse-{{forloop.counter}}" aria-expanded="true" aria-controls="test-collapse" style="font-weight:bold;">{{key|upper}}</button>
+                    <div class="collapse list-group" id="test-collapse-{{ forloop.counter }}">
+                        {% for items in value %}
+                            <button class="list-group-item list-group-item-action" aria-expanded="true" onclick="statblock(`{{ items.animal }}`)">{{ items.animal }}</button>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+<main>
+{% endblock %}

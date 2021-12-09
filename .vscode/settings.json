@@ -1,0 +1,4 @@
+{
+    "auto-close-tag.fullMode": true,
+    "emmet.includeLanguages": {"django-html": "html"},
+}
