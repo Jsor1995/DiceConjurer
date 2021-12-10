@@ -16,7 +16,7 @@
                     <button class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#test-collapse-{{forloop.counter}}" aria-expanded="true" aria-controls="test-collapse" style="font-weight:bold;">{{key|upper}}</button>
                     <div class="collapse list-group" id="test-collapse-{{ forloop.counter }}">
                         {% for items in value %}
-                            <button class="list-group-item list-group-item-action" aria-expanded="true" onclick="statblock(`{{ items.animal }}`)">{{ items.animal }}</button>
+                            <button type="submit" onclick="location.href='{% url 'create_card' items.animal %}'" class="list-group-item list-group-item-action animal-btn" aria-expanded="true">{{ items.animal }}</button>
                         {% endfor %}
                     </div>
                 {% endfor %}
@@ -24,4 +24,17 @@
         </div>
     </div>
 <main>
+<script>
+    $(".animal-btn").click(function () { 
+        var animal = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'create_card' %}",
+            data: {"animal": animal},
+            success: function (response){
+                console.log(response);
+            }
+        })
+    });
+</script>
 {% endblock %}

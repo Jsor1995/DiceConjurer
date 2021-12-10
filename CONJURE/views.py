@@ -1,7 +1,8 @@
-from django.http.response import JsonResponse
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from .models import AnimalList
 import requests
 import json
@@ -17,9 +18,9 @@ def index(request):
         "cr_list": cr_query
     })
 
-def create_card(data):
-    statblock = json.loads(data)
-    print(statblock)
-    return JsonResponse(
-        {"message": "Card Created!"}
-    )
+def create_card(request, animal):
+    print(animal)
+    cleaned_data = animal.replace(' ','-').lower()
+    statblock = requests.get(f'https://www.dnd5eapi.co/api/monsters/{cleaned_data}')
+    print(statblock.json())
+    return JsonResponse(statblock.json())
