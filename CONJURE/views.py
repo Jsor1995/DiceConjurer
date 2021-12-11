@@ -19,7 +19,7 @@ def index(request):
     })
 
 def create_card(request, animal):
-    print(animal)
+    print("start")
     cleaned_data = animal.replace(' ','-').lower()
     statblock = requests.get(f'https://www.dnd5eapi.co/api/monsters/{cleaned_data}')
     print(statblock.json())

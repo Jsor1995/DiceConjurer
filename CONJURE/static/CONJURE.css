@@ -12,12 +12,31 @@ main{
 
 #flex-grid {
     display: flex;
+    flex-direction: column-reverse;
     width: 60vw;
     height:60vh;
     border: 2px solid black ;
     border-radius: 5%;
+    padding: 15px;
 }
 
 #conjure-menu {
     width:15vw;
+}
+
+.dice-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.stat-detail {
+    font-size: 15px;
+}
+.card {
+    max-width: 20%;
+    height: 100%;
+    border-style: solid;
+    border-radius: 5%;
+    border-color: #427131;
 }
