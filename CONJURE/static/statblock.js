@@ -8,10 +8,26 @@ $(document).ready(function () {
             console.log(result);
             conjureCount(result);
             $(".card").toggle();
+            $(".dropdown-toggle").show();
+
+            //create roll all menu
+            $(".dropdown-menu").empty();
+            $(".dropdown-menu").append(addAllAttack(result));
         }
         catch {
             console.log("Error: Could Not Retreive Statblock")
         }
+            //Roll Attack All At Once
+        $(".attack-all").click(function() {
+            try {
+                var attack = $(this).text();
+                console.log(`Attack Name: ${attack}`);
+                attackAll(attack);
+            }
+            catch(error) {
+                console.error;
+            }
+        });
     });
 });
 //Creates card element
@@ -25,7 +41,7 @@ function createCard(data) {
                 <h5 class="card-title">${title}</h5>
             </div>
             <ul class="list-group list-group-flush stat-detail">
-                <li class="list-group-item">Armor Class: ${ac}</li>
+                <li class="list-group-item armor-class">Armor Class: ${ac}</li>
                 <table class="table table-bordered roll-table">
                     <thead class="rolltable-header">
                         <th scope="col" class="attack-header">Attack</th>
@@ -59,7 +75,7 @@ function createCard(data) {
             table_body.show();
 
             //check if AC is filled out
-            if ($("#target-ac").val() == '') {
+            if ($("#target-ac").val() == '' || isNaN($("#target-ac").val()) == true) {
                 alert("Please input Target AC");
                 return;
             }
@@ -108,6 +124,16 @@ function addAtkBtn(data) {
     return button_element;
 }
 
+//creates menu for rolling for all
+function addAllAttack(data) {
+    let iter_start = checkMultiAttack(data.actions);
+    let button_element = '';  
+    for (iter_start; iter_start < data.actions.length; iter_start++) {
+        button_element = `${button_element}` + `<li><a href="#" class="btn btn-primary dropdown-item attack-all">${data.actions[iter_start].name}</a></li>`;
+    }
+    return button_element;
+}
+
 function conjureCount(data) {
     var cr = data.challenge_rating;
     var numIter;
@@ -133,15 +159,12 @@ function conjureCount(data) {
         createCard(data);
     }
 
-    
-
     $(".card").toggle();
 };
 
 //Rolls attack returns number
 function attackRoll(attackBonus){
     let result = droll.roll('d20').total + attackBonus;
-    //console.log(`attackRoll: ${result}`);
     return result;
 }
 
@@ -150,12 +173,8 @@ function damageRoll(attack, actionArray) {
     var damageFormula;
     for (var i=0; i<actionArray.length; i++) {
         if (actionArray[i].name == attack) {
-            console.log(actionArray[i].name);
-            console.log(actionArray[i].damage);
             damageFormula = actionArray[i].damage[0].damage_dice;
-            console.log(`Damage Formula: ${damageFormula}`);
             let result =  droll.roll(damageFormula).total;
-            console.log(`Damage: ${result}`);
             return result;
         }
     }
@@ -182,5 +201,18 @@ function checkMultiAttack(actionArray) {
     else {
         //returns false
         return 0;
+    }
+}
+
+
+function attackAll(attack) {
+    if ($("#target-ac").val() == '' || isNaN($("#target-ac").val()) == true) {
+        alert("Please input Target AC");
+        return;
+    }
+    else {
+        $(`.attack-btn:contains("${attack}")`).each(function(index){
+            $(this).trigger('click');
+        });
     }
 }

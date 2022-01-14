@@ -6,27 +6,35 @@
             <h1>CONJURE ANIMAL CALCULATOR</h1><br>
         </div>
     <div id="app-container">
-        <div id="monster-action-menu"></div>
         <div id="flex-grid">
+            <div id="menu-bar">
+                <button class="btn btn-primary side-btn" id="conjuremenu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle Menu</button>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="roll-dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="display: none">
+                        Roll All
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="roll-dropdown"></ul>
+                </div>
+            </div>
             <div class="enemy-deck">
                 <input type="text" inputmode="numeric" id="target-ac" placeholder="AC" maxlength="2"><br>
                 <!--<a href='#'class="btn btn-primary" id="create-target">Create Target</a>-->
             </div><hr>
             <div class="card-deck"></div>
         </div>
-        <div id="conjure-menu">
+        
+        <div class="offcanvas offcanvas-end animal-menu" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="list-group">
                 {% for key, value in cr_list.items %}
-                    <button class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#test-collapse-{{forloop.counter}}" aria-expanded="true" aria-controls="test-collapse" style="font-weight:bold;">{{key|upper}}</button>
+                    <button class="list-group-item list-group-item-action cr-header" data-bs-toggle="collapse" data-bs-target="#test-collapse-{{forloop.counter}}" aria-expanded="true" aria-controls="test-collapse">{{key|upper}}</button>
                     <div class="collapse list-group" id="test-collapse-{{ forloop.counter }}">
                         {% for items in value %}
-                            <button type="submit" class="list-group-item list-group-item-action animal-btn" aria-expanded="true">{{ items.animal }}</button>
+                            <button type="submit" class="list-group-item list-group-item-action animal-btn" data-bs-dismiss="offcanvas" aria-expanded="true">{{ items.animal }}</button>
                         {% endfor %}
                     </div>
                 {% endfor %}
-                <li class="list-group-item menu-holder"></li>
             </div>
-        </div>                                                                                           
+        </div>                                                                                      
     </div>
 <main>
 {% endblock %}

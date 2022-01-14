@@ -1,5 +1,5 @@
 body {
-    background-color: #a5bea4;
+    background-color: #ADC2A9;
 }
 
 main{
@@ -11,21 +11,43 @@ main{
 #app-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
-.menu-holder {
-    align-self: stretch;
+#menu-bar {
+    display: flex;
+    align-self: flex-end;
 }
 
-#monster-action-menu {
-    flex: 1;
+.side-btn {
+    margin-right: 5px;
+}
+
+.animal-menu {
+    width:10vw;
+}
+
+.cr-header {
+    font-family: Arial, sans-serif; 
+    font-weight: bold;
+    text-align: center;
+    background-color: #F0ECE3;
+    font-size: 1em;
+}
+
+.cr-header:hover, .cr-header:focus,
+.animal-btn:hover, .animal-btn:focus {
+    background-color: #DFD3C3;
+}
+
+.offcanvas-end, .animal-btn {
+    background-color: #F0ECE3;
 }
 
 #flex-grid {
     background-color: #e1e9e1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     overflow: hidden;
     width: 60vw;
@@ -33,13 +55,11 @@ main{
     /* border: 1px solid; */
     border-radius: 8px;
     padding: 30px;
-    flex:5;
     -webkit-box-shadow: -6px -1px 14px 0px rgba(0,0,0,0.33); 
     box-shadow: -6px -1px 14px 0px rgba(0,0,0,0.33);
 }
 
 #conjure-header {
-    
     color: #F5F5F5;
     text-align: center;
 }
@@ -49,15 +69,11 @@ main{
     font-weight: bold;
 }
 
-#conjure-menu {
-    flex:1;
-    width:12vw;
-}
-
 .dice-button{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    justify-self: end;
     align-items: center;
 }
 
@@ -68,6 +84,7 @@ main{
 .card-deck {
     display: flex;
     flex-flow: row wrap;
+    margin-top:auto;
     justify-content: space-evenly;
     align-items: flex-start;
     overflow-y: auto;
@@ -78,14 +95,19 @@ main{
     width: 100%;
 }
 .card {
+    font-family: 'Source Sans Pro', sans-serif;
     min-width: 150px;
-    max-width: 160px;
+    max-width: 180px;
     min-height: 240px;
     max-height: 300px;
-    margin-top: 20px;
+    margin: 10px;
     border-style: solid;
     border-radius: 5%;
     border-color: #427131;
+    background-color: #f3eee0;
+}
+
+.armor-class {
     background-color: #f3eee0;
 }
 
@@ -113,6 +135,7 @@ main{
 .roll-table {
     width: 100%;
     table-layout: fixed;
+    margin-bottom: 0;
 }
 .rolltable-header {
     font-size: small;
@@ -125,5 +148,8 @@ main{
     text-align: center;
     font-size: 20px;
     font-weight: bold;
+}
 
+.table > :not(:first-child) {
+    border-top: 0.5px solid black;
 }
